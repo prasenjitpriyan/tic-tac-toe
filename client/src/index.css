@@ -17,3 +17,31 @@
 .current-move-circle {
   background-color: #bfea7c !important;
 }
+
+div:where(.swal2-container) div:where(.swal2-popup) {
+  background: #d5b4b4 !important;
+  color: #545454;
+}
+
+div:where(.swal2-container) h2:where(.swal2-title) {
+  color: #867070;
+}
+
+div:where(.swal2-container) input:where(.swal2-input),
+div:where(.swal2-container) input:where(.swal2-file),
+div:where(.swal2-container) textarea:where(.swal2-textarea) {
+  border: 1px solid #867070;
+  border-radius: 0.1875em;
+  background: rgba(0, 0, 0, 0);
+  color: inherit;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+  background-color: lightgreen !important;
+  color: #867070;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+  background-color: #867070;
+  color: #d5b4b4;
+}

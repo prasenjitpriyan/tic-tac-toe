@@ -97,13 +97,11 @@ const crossSvg = (
 );
 
 const Square = ({
-  gameState,
   setGameState,
   socket,
   playingAs,
   currentElement,
   finishedArrayState,
-  setFinishedState,
   finishedState,
   id,
   currentPlayer,
@@ -154,7 +152,7 @@ const Square = ({
         finishedState ? "hover:cursor-not-allowed" : ""
       } ${currentPlayer !== playingAs ? "hover:cursor-not-allowed" : ""} ${
         finishedArrayState.includes(id) ? finishedState + "-won" : ""
-      } ${finishedState && finishedState !== playingAs ? "bg-gray-500" : ""}`}
+      } ${finishedState && finishedState !== playingAs ? "bg-gray-400" : ""}`}
     >
       {currentElement === "circle"
         ? circleSvg

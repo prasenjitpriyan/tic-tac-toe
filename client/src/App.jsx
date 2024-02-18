@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import Heading from "./components/Heading";
 import Square from "./components/Square";
 import Swal from "sweetalert2";
+import ConfettiExplosion from "react-confetti-explosion";
 
 const renderFrom = [
   [1, 2, 3],
@@ -22,6 +23,7 @@ const App = () => {
   const [playingAs, setPlayingAs] = useState(null);
 
   const checkWinner = () => {
+    // row dynamic
     for (let row = 0; row < gameState.length; row++) {
       if (
         gameState[row][0] === gameState[row][1] &&
@@ -31,6 +33,8 @@ const App = () => {
         return gameState[row][0];
       }
     }
+
+    // column dynamic
     for (let col = 0; col < gameState.length; col++) {
       if (
         gameState[0][col] === gameState[1][col] &&
@@ -40,26 +44,27 @@ const App = () => {
         return gameState[0][col];
       }
     }
+
     if (
       gameState[0][0] === gameState[1][1] &&
       gameState[1][1] === gameState[2][2]
     ) {
       return gameState[0][0];
     }
+
     if (
       gameState[0][2] === gameState[1][1] &&
       gameState[1][1] === gameState[2][0]
     ) {
       return gameState[0][2];
     }
+
     const isDrawMatch = gameState.flat().every((e) => {
-      if (e === "circle" || e === "cross") {
-        return true;
-      }
+      if (e === "circle" || e === "cross") return true;
     });
-    if (isDrawMatch) {
-      return "draw";
-    }
+
+    if (isDrawMatch) return "draw";
+
     return null;
   };
 
@@ -114,20 +119,29 @@ const App = () => {
     setOpponentName(data.opponentName);
   });
 
-  const playOnlineClick = async () => {
+  async function playOnlineClick() {
     const result = await takePlayerName();
+
     if (!result.isConfirmed) {
       return;
     }
+
     const username = result.value;
     setPlayerName(username);
+
     const newSocket = io("http://localhost:3000", {
       autoConnect: true,
     });
+
     newSocket?.emit("request_to_play", {
       playerName: username,
     });
+
     setSocket(newSocket);
+  }
+
+  const restartGame = () => {
+    window.location.reload(true);
   };
 
   if (!playOnline) {
@@ -198,10 +212,20 @@ const App = () => {
           {finishedState &&
             finishedState !== "opponentLeftMatch" &&
             finishedState !== "draw" && (
-              <h3 className="text-center text-xl">
-                {finishedState === playingAs ? "You " : finishedState} won the
-                game
-              </h3>
+              <>
+                {" "}
+                <h3 className="text-center text-2xl font-semibold text-[#D5B4B4]">
+                  {finishedState === playingAs ? "You " : finishedState} won the
+                  game
+                </h3>
+                <h3 className="hidden">
+                  {finishedState === playingAs ? (
+                    <ConfettiExplosion />
+                  ) : (
+                    finishedState
+                  )}{" "}
+                </h3>
+              </>
             )}
           {finishedState &&
             finishedState !== "opponentLeftMatch" &&
@@ -216,6 +240,14 @@ const App = () => {
           {finishedState && finishedState === "opponentLeftMatch" && (
             <h2>You won the match, Opponent has left</h2>
           )}
+        </div>
+        <div className="flex items-center justify-center mt-5">
+          <button
+            className="bg-[#D5B4B4] px-24 py-2 rounded text-[#867070]"
+            onClick={restartGame}
+          >
+            Restart the Game
+          </button>
         </div>
       </div>
     </div>
