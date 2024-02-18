@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.circle-won {
+  background-color: #bfea7c;
+}
+
+.cross-won {
+  background-color: #f67171;
+}
+
+.current-move-cross {
+  background-color: #f67171 !important;
+}
+
+.current-move-circle {
+  background-color: #bfea7c !important;
+}
