@@ -2,8 +2,8 @@ const { createServer } = require("http")
 const { Server } = require("socket.io")
 
 const httpServer = createServer();
-const io = new Server(httpsServer, {
-  cors: "https://tic-tac-toe-tvp9.onrender.com"
+const io = new Server(httpServer, {
+  cors: "http://localhost:5173"
 })
 
 const allUsers = {};
