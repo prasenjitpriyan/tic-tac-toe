@@ -1,10 +1,15 @@
+const express = require('express');
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
+const path = require('path');
 
 const allUsers = {};
 const allRooms = [];
+
+app.use(express.static(path.join(__dirname, '../../build')));
+app.get('/', (req, res, next) => res.sendFile(__dirname + './index.html'));
 
 io.on("connection", (socket) => {
   allUsers[socket.id] = {
