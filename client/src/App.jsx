@@ -129,9 +129,7 @@ const App = () => {
     const username = result.value;
     setPlayerName(username);
 
-    const newSocket = io("http://localhost:8080", {
-      autoConnect: true,
-    });
+    const newSocket = io("http://localhost:8080");
 
     newSocket?.emit("request_to_play", {
       playerName: username,
