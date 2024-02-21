@@ -129,7 +129,7 @@ const App = () => {
     const username = result.value;
     setPlayerName(username);
 
-    const newSocket = io("http://localhost:8080");
+    const newSocket = io("https://tic-tac-toe-backend-i4zx.onrender.com");
 
     newSocket?.emit("request_to_play", {
       playerName: username,
